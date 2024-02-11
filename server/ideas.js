@@ -39,5 +39,17 @@ ideasRouter.get("/:id", (req, res, next) => {
 });
 
 //PUT update a single id by id
+ideasRouter.put("/:id", (req, res, next) => {
+  const updatedIdea = updateInstanceInDatabase("ideas", req.body);
+  res.send(updatedIdea);
+});
 
 //DELETE a signle id by id
+ideasRouter.delete("/:id", (req, res, next) => {
+  const deletedIdea = deleteFromDatabasebyId("ideas", req.params.id);
+  if (deletedIdea) {
+    res.status(204).send();
+  } else {
+    res.status(500).send();
+  }
+});
